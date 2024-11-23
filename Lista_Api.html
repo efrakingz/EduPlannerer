@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Consolidado</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calendario Consolidado</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Título/Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Término</th>
+                <th>Fuente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in calendario %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.FechaInicio }}</td>
+                <td>{{ item.FechaTermino|default:"N/A" }}</td>
+                <td>{{ item.source }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay datos disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
