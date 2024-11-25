@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPlanner - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --color-sage: #A3B18A;
+            --primary-color: #588157;
+            --secondary-color: #f5f7fa;
+            --accent-color: #344E41;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #2980b9);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        .event-item {
+            transition: transform 0.3s ease;
+        }
+
+        .event-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: white;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .card-text strong {
+            color: var(--accent-color);
+        }
+
+        .event-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .event-date {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .no-events {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="page-header">
+        <div class="header-content">
+            <h1 class="text-center mb-0">EduPlanner</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sección de Eventos Académicos -->
+        <div class="mt-5">
+            <h2><i class="fas fa-calendar-alt me-2"></i>Calendario Anual</h2>
+            <div class="row" id="eventsContainer">
+                {% if eventos %}
+                    {% for evento in eventos %}
+                        <div class="col-md-4 event-item">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <i class="fas fa-graduation-cap event-icon"></i>
+                                    </div>
+                                    <h5 class="card-title text-center">{{ evento.titulo }}</h5>
+                                    <div class="event-date text-center w-100 mb-3">
+                                        <i class="far fa-calendar-alt me-2"></i>
+                                        {{ evento.fecha_inicio }}
+                                    </div>
+                                    <p class="card-text"><strong><i class="fas fa-info-circle me-2"></i>Descripción:</strong> {{ evento.descripcion }}</p>
+                                    <p class="card-text"><strong><i class="fas fa-hourglass-end me-2"></i>Fecha Fin:</strong> {{ evento.fecha_fin }}</p>
+                                    <p class="card-text"><strong><i class="fas fa-tag me-2"></i>Tipo:</strong> {{ evento.tipo_evento }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-events">
+                        <i class="fas fa-calendar-times fa-3x mb-3 text-muted"></i>
+                        <p class="text-muted">No hay eventos académicos disponibles.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tu código JavaScript existente se mantiene igual
+        const translationMap = {
+            "New Year's Day": "Año Nuevo",
+            "March Equinox": "Equinoccio de marzo",
+            "Maundy Thursday": "Jueves Santo",
+            "Good Friday": "Viernes Santo",
+            "Holy Saturday": "Sábado Santo",
+            "Easter Sunday": "Domingo de Pascua",
+            "Labor Day / May Day": "Día del Trabajo",
+            "Navy Day": "Día de las Glorias Navales",
+            "Corpus Christi": "Corpus Christi",
+            "June Solstice": "Solsticio de junio",
+            "National Day of Indigenous Peoples": "Día Nacional de los Pueblos Indígenas",
+            "Saint Peter and Saint Paul": "San Pedro y San Pablo",
+            "Our Lady of Mount Carmel": "Virgen del Carmen",
+            "Assumption of Mary": "Asunción de la Virgen",
+            "National Day": "Fiestas Patrias",
+            "Army Day": "Día de las Glorias del Ejército",
+            "Extended National Day Holiday": "Festividad extendida por Fiestas Patrias",
+            "September Equinox": "Equinoccio de septiembre",
+            "Day of the Discovery of Two Worlds": "Día del Encuentro de Dos Mundos",
+            "Local elections": "Elecciones locales",
+            "Reformation Day": "Día de la Reforma",
+            "All Saints' Day": "Día de Todos los Santos",
+            "Second Round Local elections": "Segunda vuelta de elecciones locales",
+            "Inmaculate Conception Day": "Día de la Inmaculada Concepción",
+            "December Solstice": "Solsticio de diciembre",
+            "Christmas Day": "Navidad",
+            "New Year's Eve": "Nochevieja",
+            "National holiday": "Feriado nacional",
+            "Season": "Estación",
+            "Observance": "Conmemoración",
+            "Christian": "Cristiano",
+            "Common local holiday": "Festividad local"
+            
+        };
+
+        function translateHolidays() {
+            const holidays = document.querySelectorAll('.holiday-item');
+            holidays.forEach(holiday => {
+                const titleElement = holiday.querySelector('.card-title');
+                const originalName = titleElement.innerText.trim();
+                if (translationMap[originalName]) {
+                    titleElement.innerText = translationMap[originalName];
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', translateHolidays);
+    </script>
+</body>
+</html>
